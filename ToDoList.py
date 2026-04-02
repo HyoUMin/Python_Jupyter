@@ -12,7 +12,7 @@ todo_list = []
 # 저장된 To Do List 모두 출력
 def view_all():
     print("======== 전체 할 일 목록 ========")
-
+    # 저장된 To Do List 확인
     if not todo_list:
         print("저장된 할 일이 없습니다.")
         return
@@ -23,6 +23,7 @@ def view_all():
 
 # 조회하고 싶은 날짜의 To Do List 출력
 def view_daily():
+    # 올바른 형식 입력 확인
     while True:
         date_choose = input("조회하고 싶은 날짜를 입력하세요(예: 2026-04-02):")
         
@@ -35,7 +36,7 @@ def view_daily():
     print(f"\n======== {date_choose} 할 일 목록 ========")
     
     count = 0
-
+    # 입력되어 있는 항목과 조회하고 싶은 항목이 같은지 확인
     for task in todo_list:
         if date_choose == task["date"]:
             print(f" 날짜: {task['date']}\n 할 일: {task['detail']}")
@@ -47,6 +48,7 @@ def view_daily():
 
 # To Do List 입력 
 def add_task():
+    # 올바른 형식 입력 확인
     while True:
         date_ = input("날짜를 입력하세요(예: 2026-04-02)")
         
@@ -55,7 +57,7 @@ def add_task():
 
         else:
             print("형식이 잘못되었습니다. '2026-04-02' 형태로 다시 입력해주세요.\n") 
-
+    # 리스트에 추가
     todo = input("할 일을 입력하세요:")
     todo_list.append({"date": date_, "detail": todo})
 
@@ -64,6 +66,7 @@ def add_task():
 
 # To Do List 수정 - 1. 수정하고 싶은 날짜 선택 2. 수정하고 싶은 항목 선택 3. 항목 수정
 def edit_task():
+    # 올바른 형식 입력 확인
     while True:
         edit_date = input("수정하고 싶은 날짜를 입력하세요(예: 2026-04-02):")
 
@@ -76,7 +79,7 @@ def edit_task():
     print(f"\n======== 할 일 목록 수정 ========")
     
     matches = []
-
+    # 수정하고 싶은 항목을 새로운 리스트에 저장
     for task in todo_list:
         if edit_date == task["date"]:
             matches.append(task)
@@ -86,12 +89,12 @@ def edit_task():
         return
     
     print(f"\n======== {edit_date} 검색 결과 ========")
-    
+    # 수정하고 싶은 항목의 인덱스 추출
     for i, task in enumerate(matches, 1):
         print(f"{i}. 할 일: {task['detail']}")
-
+    
     change = int(input("\n수정할 항목의 번호를 입력하세요: ")) - 1
-
+    # 
     if 0 <= change < len(matches):     
         new_todo = input("새로운 할 일을 입력하세요: ")
         matches[change]["detail"] = new_todo
@@ -104,6 +107,7 @@ def edit_task():
 
 # To Do List 삭제 - 1. 삭제하고 싶은 날짜 선택 2. 삭제하고 싶은 항목 선택 3. 항목 삭제 
 def delete_task():
+    # 올바른 형식 입력 확인
     while True:    
         del_date = input("삭제하고 싶은 날짜를 입력하세요(예: 2026-04-02):")
         
@@ -116,7 +120,7 @@ def delete_task():
     print(f"\n======== 할 일 목록 삭제 =========")
     
     matches = []
-
+    # 삭제하고 싶은 항목을 새로운 리스트에 저장
     for task in todo_list:
         if del_date == task["date"]:
             matches.append(task)
@@ -126,12 +130,12 @@ def delete_task():
         return
     
     print(f"\n======== {del_date} 검색 결과 ========")
-
+    # 삭제하고 싶은 항목의 인덱스 추출
     for i, task in enumerate(matches, 1):
         print(f"{i}. 할 일: {task['detail']}")
 
     change = int(input("\n삭제할 항목의 번호를 입력하세요: ")) - 1
-
+    
     if 0 <= change < len(matches):     
         target_task = matches[change]
         todo_list.remove(target_task)
